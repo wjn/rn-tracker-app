@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 const mongoUri =
-  'mongodb+srv://wjn:DfWNJXLjrFYL3JDMJJ2H@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
+  'mongodb+srv://wjn:roister-lockjaw-valved@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
 
 mongoose.connect(mongoUri, {
   // options object
