@@ -1,27 +1,26 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 
 const mongoUri =
-  'mongodb+srv://wjn:DfWNJXLjrFYL3JDMJJ2H@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
-
-mongoose.connect(mongoUri, {
-  // options object
-  useNewUrlParser: true,
-  useCreateIndex: true,
+  'mongodb+srv://wjn:roister-lockjaw-valved@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
+const client = new MongoClient(mongoUri, {
   useUnifiedTopology: true,
 });
 
-const db = mongoose.connection;
+async function run() {
+  try {
+    await client.connect();
+    console.log('MongoDB connected correctly to server');
+  } catch (err) {
+    console.log('[MongoDB error connecting to mongo] : ', err.stack);
+  } finally {
+    await client.close();
+  }
+}
 
-db.on('connected', () => {
-  console.log('Connected to mongo instance');
-});
-
-db.on('error', (err) => {
-  console.log('[Error connecting to mongo] : ', err);
-});
+run().catch(console.dir);
 
 app.get('/', (req, res) => {
   res.send('Hi there!');
