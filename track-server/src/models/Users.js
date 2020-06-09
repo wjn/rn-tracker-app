@@ -40,7 +40,8 @@ userSchema.pre('save', function (next) {
   const user = this;
 
   // If the `password` field is not modified then don't validate,
-  // just execute the next() callback that was passed in.
+  // just execute the next() callback that was passed in. In other words,
+  // we only run this for **New Users**.
   if (!user.isModified('password')) {
     return next();
   }
