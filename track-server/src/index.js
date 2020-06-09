@@ -1,7 +1,14 @@
+require('./models/Users');
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
+const requireAuth = require('./middlewares/requireAuth');
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(authRoutes);
 
 const mongoUri =
   'mongodb+srv://wjn:roister-lockjaw-valved@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
@@ -23,8 +30,10 @@ db.on('error', (err) => {
   console.log('[Error connecting to mongo] : ', err);
 });
 
-app.get('/', (req, res) => {
-  res.send('Hi there!');
+// include requireAuth middleware to validate only
+// authenticated users have access to the route
+app.get('/', requireAuth, (req, res) => {
+  res.send(`Your email: ${req.user.email}`);
 });
 
 app.listen(3000, () => {
