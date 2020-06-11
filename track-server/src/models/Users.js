@@ -77,7 +77,7 @@ userSchema.pre('save', function (next) {
 });
 
 /**
- * comparePasswords will validate whether the password presented
+ * `comparePasswords` will validate whether the password presented
  * for a given username is in fact the correct password for that
  * username (email address in this case).
  */
@@ -110,5 +110,17 @@ userSchema.methods.comparePasswords = function (candidatePassword) {
   });
 };
 
-// associates the schema with the mongoose library
+/**
+ * Associate the schema with the mongoose library and the MongoDB.
+ *
+ * **IMPORTANT:** you can only _define_ a named model **once**. When
+ * needed elsewhere, we can _assign_ this model to a var like
+ * const user = mongoose.model('User');
+ *
+ * **IMPORTANT:** You can also only `require('./models/User')` **once**.
+ * We do this at the base of the app in this case the index.js file.
+ *
+ * Note that we're omitting the `userSchema` arg which indicates
+ * we're not defining the model but rather calling it.
+ */
 mongoose.model('User', userSchema);

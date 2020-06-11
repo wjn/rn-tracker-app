@@ -1,18 +1,45 @@
+/**
+ * Data Models:
+ * Can only require mongoose models 1x or
+ * you will have problems. We require them
+ * at the root of the app here, so that
+ * they are available for the entire app.
+ */
 require('./models/Users');
+require('./models/Track');
+// Libraries
 const express = require('express');
 const mongoose = require('mongoose');
+// Utilities
 const bodyParser = require('body-parser');
+// Routes
 const authRoutes = require('./routes/authRoutes');
+const trackRoutes = require('./routes/trackRoutes');
+// Middlewares
 const requireAuth = require('./middlewares/requireAuth');
 
+// Defines app as an express object
 const app = express();
 
+// allow response bodies to handle json
 app.use(bodyParser.json());
+
+// make required routes available to the app
 app.use(authRoutes);
+app.use(trackRoutes);
+
+/**
+ * URI generated at mongodb.com.
+ * DB: test
+ * USER: wjn
+ * Password: roister-lockjaw-valved
+ * Cluster: cluster0-njk2r.mongodb.net
+ */
 
 const mongoUri =
   'mongodb+srv://wjn:roister-lockjaw-valved@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
 
+// connect to the
 mongoose.connect(mongoUri, {
   // options object
   useNewUrlParser: true,

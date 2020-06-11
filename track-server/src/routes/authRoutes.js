@@ -61,7 +61,7 @@ router.post('/signin', async (req, res) => {
   } catch (e) {
     // If the promise is rejected we'll catch that, error out and
     // send notification to user.
-    console.log('Failed to login', e);
+    console.log('Login Status', e);
     return res.status(422).send({ error: 'Email or Password invalid.' });
   }
 });
