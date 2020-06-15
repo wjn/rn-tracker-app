@@ -11,11 +11,16 @@ import React, { useReducer } from 'react';
  * have access to state that is managed through the parent.
  */
 export default (reducer, actions, defaultValue) => {
-  const Context = React.createContext;
+  // Piece 1:  Establish Context
+  const Context = React.createContext();
 
+  // Piece 2: Build out Provider
   const Provider = ({ children }) => {
+    // manage state with reducer passed into this context
     const [state, dispatch] = useReducer(reducer, defaultValue);
 
+    // associate reducer's dispatch callback with
+    // actions passed into this Context.
     const boundActions = {};
     for (let key in actions) {
       // look up each action passed in and call each one with the dispatch
@@ -29,5 +34,6 @@ export default (reducer, actions, defaultValue) => {
     );
   };
 
+  // return an object with Context and Provider available.
   return { Context, Provider };
 };

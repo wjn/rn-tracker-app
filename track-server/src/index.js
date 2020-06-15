@@ -39,6 +39,8 @@ app.use(trackRoutes);
 const mongoUri =
   'mongodb+srv://wjn:roister-lockjaw-valved@cluster0-njk2r.mongodb.net/test?retryWrites=true&w=majority';
 
+console.log('Attempting connection to mongoDb');
+
 // connect to the
 mongoose.connect(mongoUri, {
   // options object
