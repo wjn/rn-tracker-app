@@ -56,8 +56,12 @@ const signup = (dispatch) => async ({ email, password }) => {
 
 const signin = (dispatch) => {
   return ({ email, password }) => {
-    // make api request to signup with email and password
-    // if signup successful, modify state, saying wer'e authenticated.
+    console.log(
+      `[AUTHCONTEXT][SIGNIN][START] email : ${email} , password: ${password}`
+    );
+
+    // make api request to signin with email and password
+    // if signin successful, modify state, saying wer'e authenticated.
     // if we fail, reflect error message
   };
 };

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
-import Spacer from '../components/Spacer';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
+import AuthForm from '../components/AuthForm';
+import NavLink from '../components/NavLink';
 
 const SignupScreen = ({ navigation }) => {
   /**
@@ -33,55 +33,22 @@ const SignupScreen = ({ navigation }) => {
    * See https://reactjs.org/docs/hooks-reference.html#usecontext for more info.
    */
   const { state, signup } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   console.log('[SIGNUP-SCREEN] state: ', state);
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text style={styles.heading} h3>
-          Sign Up for Tracker
-        </Text>
-      </Spacer>
-      <Spacer />
-
-      {/*   onChangeText = (newEmail = setEmail(newEmail)) is the equivalent of
-            onChangeText = setEmail
-      */}
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={setEmail}
-        leftIcon={{ type: 'feather', name: 'mail' }}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Spacer />
-      <Input
-        secureTextEntry
-        label="Password"
-        value={password}
-        onChangeText={setPassword}
-        leftIcon={{ type: 'feather', name: 'lock' }}
-        autoCapitalize="none"
-        autoCorrect={false}
+      <AuthForm
+        headerText="Sign Up for Tracker"
+        errorMessage={state.errorMessage}
+        submitButtonText="Sign Up"
+        onSubmit={signup}
       />
 
-      {/* Create conditional display of error message */}
-
-      {state.errorMessage ? (
-        <Spacer>
-          <Text style={styles.errorMessage}>{state.errorMessage}</Text>
-        </Spacer>
-      ) : null}
-
-      {/* call signup from authContext and pass in email and password */}
-
-      <Spacer>
-        <Button title="Sign Up" onPress={() => signup({ email, password })} />
-      </Spacer>
+      <NavLink
+        routeName="Signin"
+        linkText="Already have an account? Sign in instead."
+      />
     </View>
   );
 };
@@ -100,11 +67,6 @@ const styles = StyleSheet.create({
     marginBottom: 150,
   },
   heading: {
-    textAlign: 'center',
-  },
-  errorMessage: {
-    fontSize: 16,
-    color: 'red',
     textAlign: 'center',
   },
 });

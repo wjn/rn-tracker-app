@@ -1,3 +1,7 @@
+/**
+ * ONLY USE WHEN NAVIGATING OUTSIDE OF A REACT COMPONENT.
+ */
+
 import { NavigationActions } from 'react-navigation';
 /**
  * let means we want to be able to reassign a variable at a later time.
