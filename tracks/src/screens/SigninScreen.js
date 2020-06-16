@@ -1,16 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
-const SigninScreen = ({ navigation }) => {
-  const { state, signin } = useContext(AuthContext);
+const SigninScreen = () => {
+  const { state, signin, clearErrorMessage, tryLocalSignin } = useContext(
+    AuthContext
+  );
 
   console.log('[SIGNIN-SCREEN] state: ', state);
 
+  useEffect(() => {
+    tryLocalSignin();
+  }, []);
+
   return (
     <View style={styles.container}>
+      <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
         headerText="Sign in to Tracker"
         errorMessage={state.errorMessage}
@@ -24,13 +32,6 @@ const SigninScreen = ({ navigation }) => {
       />
     </View>
   );
-};
-
-SigninScreen.navigationOptions = () => {
-  return {
-    // Hide the header for this screen
-    headerShown: false,
-  };
 };
 
 const styles = StyleSheet.create({

@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = () => {
   /**
    * useContext() accepts a context object and returns the current context
    * value for that context. That current context value is determined by the
@@ -32,12 +33,13 @@ const SignupScreen = ({ navigation }) => {
    *
    * See https://reactjs.org/docs/hooks-reference.html#usecontext for more info.
    */
-  const { state, signup } = useContext(AuthContext);
+  const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
   console.log('[SIGNUP-SCREEN] state: ', state);
 
   return (
     <View style={styles.container}>
+      <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
         headerText="Sign Up for Tracker"
         errorMessage={state.errorMessage}
@@ -51,13 +53,6 @@ const SignupScreen = ({ navigation }) => {
       />
     </View>
   );
-};
-
-SignupScreen.navigationOptions = () => {
-  return {
-    // Hide the header for this screen
-    headerShown: false,
-  };
 };
 
 const styles = StyleSheet.create({

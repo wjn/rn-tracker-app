@@ -13,10 +13,19 @@ import { setNavigator } from './src/navigationRef';
 
 // can link Screens or *other navigators* herein labed 'Flows'
 const switchNavigator = createSwitchNavigator({
-  loginFlow: createStackNavigator({
-    Signup: SignupScreen,
-    Signin: SigninScreen,
-  }),
+  loginFlow: createStackNavigator(
+    {
+      Signup: SignupScreen,
+      Signin: SigninScreen,
+    },
+    {
+      initialRouteName: 'Signin',
+
+      defaultNavigationOptions: {
+        headerShown: false,
+      },
+    }
+  ),
   mainFlow: createBottomTabNavigator({
     trackListFlow: createStackNavigator({
       TrackList: TrackListScreen,
