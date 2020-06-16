@@ -7,6 +7,9 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case 'add_error':
       return { ...state, errorMessage: action.payload };
+    case 'signout':
+      // will reset state totally and give token value of null
+      return { token: null, errorMessage: '' };
     case 'signin':
       /**
        * on signup we need to reset the entire state object. That means we won't
@@ -31,12 +34,19 @@ const authReducer = (state, action) => {
  */
 
 const tryLocalSignin = (dispatch) => async () => {
+  console.log(`[AUTHCONTEXT][tryLocalSignin] called...`);
+
   const token = await AsyncStorage.getItem('token');
+  console.log(`[AUTHCONTEXT][tryLocalSignin] token value: ${token}`);
+
   if (token) {
+    console.log(`[AUTHCONTEXT][tryLocalSignin] token found: ${token}`);
+
     dispatch({ type: 'signin', payload: token });
     navigate('TrackList');
   } else {
-    navigate('LoginFlow');
+    console.log(`[AUTHCONTEXT][tryLocalSignin] token NOT found: ${token}`);
+    navigate('loginFlow');
   }
 };
 
@@ -86,7 +96,7 @@ const signin = (dispatch) => async ({ email, password }) => {
     // and write it to asyncStorage to be used to autolog a user back in
     await AsyncStorage.setItem('token', res.data.token);
 
-    console.log('[AUTHCONTEXT][SIGNUP][SUCCESS] res.data: ', res.data);
+    console.log('[AUTHCONTEXT][SIGNIN][SUCCESS] res.data: ', res.data);
 
     dispatch({ type: 'signin', payload: res.data.token });
 
@@ -100,10 +110,10 @@ const signin = (dispatch) => async ({ email, password }) => {
   }
 };
 
-const signout = (dispatch) => {
-  return () => {
-    // sign out
-  };
+const signout = (dispatch) => async () => {
+  await AsyncStorage.removeItem('token');
+  dispatch({ type: 'signout' });
+  navigate('loginFlow');
 };
 
 /**

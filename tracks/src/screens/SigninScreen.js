@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -6,15 +6,9 @@ import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
 const SigninScreen = () => {
-  const { state, signin, clearErrorMessage, tryLocalSignin } = useContext(
-    AuthContext
-  );
+  const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
   console.log('[SIGNIN-SCREEN] state: ', state);
-
-  useEffect(() => {
-    tryLocalSignin();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -39,9 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginBottom: 150,
-  },
-  heading: {
-    textAlign: 'center',
   },
 });
 

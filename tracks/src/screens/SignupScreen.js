@@ -61,9 +61,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 150,
   },
-  heading: {
-    textAlign: 'center',
-  },
 });
 
 export default SignupScreen;

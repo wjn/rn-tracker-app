@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import Spacer from './Spacer';
+import PageHeading from './PageHeading';
 
 const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
   const [email, setEmail] = useState('');
@@ -9,12 +10,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
 
   return (
     <>
-      <Spacer>
-        {/* Screen Header */}
-        <Text style={styles.heading} h3>
-          {headerText}
-        </Text>
-      </Spacer>
+      <PageHeading headerText={headerText} />
       <Spacer />
 
       {/*   
