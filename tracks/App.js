@@ -9,6 +9,7 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Provider as LocationProvider } from './src/context/LocationContext';
 import { setNavigator } from './src/navigationRef';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 
@@ -47,22 +48,24 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <AuthProvider>
-      {/**
-       * ref prop receives a function that passes the navigator into the
-       * setNavigator() function. The ref thing is a function that's called with
-       * the object (navigator) that allows us to navigate around. By passing it
-       * into `setNavigator` it returns the navigator and assigns it to `navigate`
-       * within the navigationRef.js file. That is what is made available in a
-       * named import to the authContext so that we can use react navigation to
-       * navigate from outside of a component.
-       */}
+    <LocationProvider>
+      <AuthProvider>
+        {/**
+         * ref prop receives a function that passes the navigator into the
+         * setNavigator() function. The ref thing is a function that's called with
+         * the object (navigator) that allows us to navigate around. By passing it
+         * into `setNavigator` it returns the navigator and assigns it to `navigate`
+         * within the navigationRef.js file. That is what is made available in a
+         * named import to the authContext so that we can use react navigation to
+         * navigate from outside of a component.
+         */}
 
-      <App
-        ref={(navigator) => {
-          setNavigator(navigator);
-        }}
-      />
-    </AuthProvider>
+        <App
+          ref={(navigator) => {
+            setNavigator(navigator);
+          }}
+        />
+      </AuthProvider>
+    </LocationProvider>
   );
 };
