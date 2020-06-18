@@ -23,7 +23,10 @@ export default (reducer, actions, defaultValue) => {
     // actions passed into this Context.
     const boundActions = {};
     for (let key in actions) {
-      // look up each action passed in and call each one with the dispatch
+      // look up each action passed in and pass in the dispatch function
+      // obtained from `useReducer` above. Those reducer action functions
+      // become the dispatch functions, based on the reducer that's
+      // passed in when initializing createDataContext
       boundActions[key] = actions[key](dispatch);
     }
 

@@ -1,17 +1,27 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import MapView, { Polyline, Circle } from 'react-native-maps';
 import { Context as LocationContext } from '../context/LocationContext';
+import Spacer from '../components/Spacer';
 
 const Map = () => {
   const {
     state: { currentLocation },
   } = useContext(LocationContext);
+
   console.log('[MAP][LOCATIONCTX][currentLocation]', currentLocation);
 
   if (!currentLocation) {
-    return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
+    return (
+      <View style={styles.findingContainer}>
+        <Spacer>
+          <Text style={styles.findingMessage}>Finding your location...</Text>
+        </Spacer>
+        <ActivityIndicator size="large" style={styles.findingSpinner} />
+      </View>
+    );
   }
+
   return (
     <MapView
       style={styles.map}
@@ -33,6 +43,15 @@ const Map = () => {
 const styles = StyleSheet.create({
   map: {
     height: 300,
+  },
+  findingContainer: {
+    height: 300,
+  },
+  findingMessage: {
+    textAlign: 'center',
+  },
+  findingSpinner: {
+    marginTop: 30,
   },
 });
 

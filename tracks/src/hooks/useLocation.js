@@ -16,6 +16,7 @@ export default (shouldTrack, callback) => {
   const startWatching = async () => {
     try {
       await requestPermissionsAsync();
+      // watchPositionAsyn returns a subscriber that can be removed (turned off)
       const sub = await watchPositionAsync(
         {
           // higher accuracy, higher batter consumption
@@ -34,10 +35,12 @@ export default (shouldTrack, callback) => {
     }
   };
 
+  // run once or run when shouldTrack is true.
   useEffect(() => {
     if (shouldTrack) {
       startWatching();
     } else {
+      // stop watching position
       subscriber.remove();
       setSubscriber(null);
     }
