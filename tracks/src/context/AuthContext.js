@@ -120,13 +120,13 @@ const signout = (dispatch) => async () => {
  * Export the Provider and Context implementing createDataContext imported above
  * passing in the three props defined:
  *  1. reducer
- *  2. actions array
+ *  2. actions array of dispatch functions
  *  3. defaultValue
  */
 export const { Provider, Context } = createDataContext(
   // reducer
   authReducer,
-  // actions
+  // dispatch actions
   { signup, signin, signout, clearErrorMessage, tryLocalSignin },
   /**
    * defaultValues

@@ -6,12 +6,22 @@ import { Text } from 'react-native-elements';
 import PageHeading from '../components/PageHeading';
 import Spacer from '../components/Spacer';
 import Map from '../components/Map';
+import TrackForm from '../components/TrackForm';
 import { Context as LocationContext } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
 
 const TrackCreateScreen = ({ isFocused }) => {
-  const { addLocation } = useContext(LocationContext);
-  const [err] = useLocation(isFocused, addLocation);
+  const { state, addLocation } = useContext(LocationContext);
+
+  // pass off location to the useLocation Hook
+  const [err] = useLocation(isFocused, (location) => {
+    /**
+     * addLocation takes location and isRecording as an argument
+     * state object comes from LocationContext
+     *  */
+
+    addLocation(location, state.isRecording);
+  });
 
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
@@ -19,6 +29,8 @@ const TrackCreateScreen = ({ isFocused }) => {
       <Spacer />
       <Map />
       {err ? <Text>Please enable location services</Text> : null}
+
+      <TrackForm />
     </SafeAreaView>
   );
 };
