@@ -6,11 +6,12 @@ import Spacer from '../components/Spacer';
 
 const Map = () => {
   const {
-    state: { currentLocation },
+    state: { currentLocation, locations },
   } = useContext(LocationContext);
 
-  console.log('[MAP][LOCATIONCTX][currentLocation]', currentLocation);
+  console.log('[Map] locations: ', locations.length);
 
+  // if no current location, return spinner in waiting screen.
   if (!currentLocation) {
     return (
       <View style={styles.findingContainer}>
@@ -33,8 +34,14 @@ const Map = () => {
       <Circle
         center={currentLocation.coords}
         radius={30}
-        strokeColor="rgba(158,158,255, 1.0)"
-        fillColor="rgba(158,158,255, 0.3)"
+        strokeColor="rgba(0,	19,	218, 1.0)"
+        fillColor="rgba(0,	19,	218, 0.3)"
+      />
+      {/* pull off the coords property */}
+      <Polyline
+        coordinates={locations.map((loc) => loc.coords)}
+        strokeWidth={4}
+        strokeColor="rgba(0,	19,	218	, 1.0)"
       />
     </MapView>
   );

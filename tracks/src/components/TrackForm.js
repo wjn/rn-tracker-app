@@ -6,11 +6,12 @@ import Spacer from '../components/Spacer';
 
 const TrackForm = () => {
   const {
-    state: { name, isRecording },
+    state: { name, isRecording, locations },
     startRecording,
     stopRecording,
     changeName,
   } = useContext(LocationContext);
+
   return (
     <Spacer>
       <Input
@@ -19,16 +20,39 @@ const TrackForm = () => {
         onChangeText={changeName}
       />
       <Spacer />
-
       {isRecording ? (
-        <Button title="Stop" onPress={stopRecording} />
+        <Button
+          title="Stop"
+          onPress={stopRecording}
+          buttonStyle={styles.stopRecording}
+        />
       ) : (
-        <Button title="Start Recording" onPress={startRecording} />
+        <Button
+          title="Start Recording"
+          onPress={startRecording}
+          buttonStyle={styles.startRecording}
+        />
       )}
+      {!isRecording && locations.length ? (
+        <>
+          <Spacer />
+          <Button title="Save" buttonStyle={styles.saveRecording} />
+        </>
+      ) : null}
     </Spacer>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  startRecording: {
+    backgroundColor: 'blue',
+  },
+  stopRecording: {
+    backgroundColor: 'red',
+  },
+  saveRecording: {
+    backgroundColor: 'green',
+  },
+});
 
 export default TrackForm;
