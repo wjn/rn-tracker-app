@@ -9,8 +9,6 @@ const Map = () => {
     state: { currentLocation, locations },
   } = useContext(LocationContext);
 
-  console.log('[Map] locations: ', locations.length);
-
   // if no current location, return spinner in waiting screen.
   if (!currentLocation) {
     return (

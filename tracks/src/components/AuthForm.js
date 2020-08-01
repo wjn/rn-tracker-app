@@ -8,6 +8,10 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  /**
+   * TODO: email fields should initiate email keyboard in ios
+   */
+
   return (
     <>
       <PageHeading headerText={headerText} />
@@ -25,6 +29,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         value={email}
         onChangeText={setEmail}
         leftIcon={{ type: 'feather', name: 'mail' }}
+        autoCompleteType="email"
         autoCapitalize="none"
         autoCorrect={false}
       />

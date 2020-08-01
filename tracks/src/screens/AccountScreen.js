@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import PageHeading from '../components/PageHeading';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Feather } from '@expo/vector-icons';
 
 const AccountScreen = () => {
   const { signout } = useContext(AuthContext);
@@ -26,5 +27,10 @@ const styles = StyleSheet.create({
     marginBottom: 150,
   },
 });
+
+AccountScreen.navigationOptions = {
+  title: 'Account',
+  tabBarIcon: <Feather name="settings" size={20} />,
+};
 
 export default AccountScreen;

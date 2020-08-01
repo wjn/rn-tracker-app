@@ -9,6 +9,7 @@ import Map from '../components/Map';
 import TrackForm from '../components/TrackForm';
 import { Context as LocationContext } from '../context/LocationContext';
 import useLocation from '../hooks/useLocation';
+import { Feather } from '@expo/vector-icons';
 
 const TrackCreateScreen = ({ isFocused }) => {
   const {
@@ -41,6 +42,11 @@ const TrackCreateScreen = ({ isFocused }) => {
       <TrackForm />
     </SafeAreaView>
   );
+};
+
+TrackCreateScreen.navigationOptions = {
+  title: 'Add Track',
+  tabBarIcon: <Feather name="plus" size={20} />,
 };
 
 const styles = StyleSheet.create({});
